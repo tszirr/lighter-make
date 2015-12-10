@@ -1,0 +1,3 @@
+add_subdirectory(${EXTERNAL_DIR}/glew)
+target_compile_definitions(glew_static PUBLIC GLEW_STATIC)
+list(APPEND ${EXTERNAL_TARGETS} glew_static)
