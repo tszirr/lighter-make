@@ -1,4 +1,10 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0.0)
+
+# prevent recursive including by subprojects if used as collective cmake
+if(LIGHTER_MAKE_INCLUDED)
+  return()
+endif()
+set(LIGHTER_MAKE_INCLUDED true)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
@@ -28,14 +34,17 @@ endfunction()
 set(LIGHTER_IMPORT_SRC ON)
 set(LIGHTER_TARGET_FACTORY "${PROJECT_SOURCE_DIR}/cmake/lighter-CMakeLists.txt")
 
-message("-- Collecting projects")
-file(GLOB projects *)
-foreach(projekt ${projects})
-	if(EXISTS ${projekt}/CMakeLists.txt)
-		message("--> ${projekt}")
-		add_subdirectory(${projekt})
-	endif()
-endforeach()
-message("")
+get_directory_property(LIGHTER_MAKE_INCLUDED_AS_DEPENDENCY PARENT_DIRECTORY)
+if (NOT LIGHTER_MAKE_INCLUDED_AS_DEPENDENCY)
+	message("-- Collecting projects")
+	file(GLOB projects *)
+	foreach(projekt ${projects})
+		if(EXISTS ${projekt}/CMakeLists.txt)
+			message("--> ${projekt}")
+			add_subdirectory(${projekt})
+		endif()
+	endforeach()
+	message("")
+endif()
 
 add_custom_target(testtarget DEPENDS glew_static lighter)
