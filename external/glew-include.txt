@@ -1,4 +1,0 @@
-add_subdirectory(${EXTERNAL_DIR}/glew EXCLUDE_FROM_ALL)
-target_compile_definitions(glew_static PUBLIC GLEW_STATIC)
-target_include_directories(glew_static INTERFACE  ${EXTERNAL_DIR}/glew/include)
-list(APPEND ${EXTERNAL_TARGETS} glew_static)

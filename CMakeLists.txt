@@ -8,11 +8,11 @@ set(LIGHTER_MAKE_INCLUDED true)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
+project(light-all)
+
 include(CMakeDependentOption)
 include("cmake/PrecompiledHeader.cmake")
 include("cmake/AddExternals.cmake")
-
-add_externals(LIGHTER_EXTERNAL_TARGETS external External)
 
 macro(add_lighter_dependencies TARGET_NAME)
 
@@ -34,12 +34,15 @@ endfunction()
 set(LIGHTER_IMPORT_SRC ON)
 set(LIGHTER_TARGET_FACTORY "${PROJECT_SOURCE_DIR}/cmake/lighter-CMakeLists.txt")
 
+add_externals(LIGHTER_EXTERNAL_TARGETS ../external external External)
+
+get_filename_component(PROJECT_DIR .. ABSOLUTE)
 message("-- Collecting projects")
-file(GLOB projects *)
+file(GLOB projects RELATIVE ${PROJECT_DIR} ${PROJECT_DIR}/*)
 foreach(projekt ${projects})
 	if(EXISTS ${projekt}/CMakeLists.txt)
 		message("--> ${projekt}")
-		add_subdirectory(${projekt})
+		add_subdirectory(${projekt} projects/${projekt})
 	endif()
 endforeach()
 message("")
