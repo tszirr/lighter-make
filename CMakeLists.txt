@@ -12,6 +12,10 @@ set(LIGHTER_MAKE_INCLUDED true)
 
 option(LIGHTER_INSTALL "Generate installation target" ON)
 
+if (MSVC)
+    option(USE_MSVC_RUNTIME_LIBRARY_DLL "Use MSVC runtime library DLL" OFF)
+endif()
+
 #--------------------------------------------------------------------
 # Installation
 #--------------------------------------------------------------------
@@ -35,6 +39,10 @@ include(CMakeDependentOption)
 include("cmake/PrecompiledHeader.cmake")
 include("cmake/AddExternals.cmake")
 
+if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_LIST_DIR)
+	include("global-flags.cmake")
+endif()
+
 #--------------------------------------------------------------------
 # Assemble project
 #--------------------------------------------------------------------
@@ -44,6 +52,10 @@ project(light-all)
 add_externals(LIGHTER_EXTERNAL_TARGETS ../external external External)
 
 set(LIGHTER_IMPORT_SRC ON)
+
+if (LIGHTER_MAKE_GLOBAL_FLAGS_SET)
+	include("global-flags-internal.cmake")
+endif()
 
 get_filename_component(PROJECT_DIR .. ABSOLUTE)
 message("-- Collecting projects")
