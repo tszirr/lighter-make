@@ -6,17 +6,19 @@ if(LIGHTER_MAKE_INCLUDED)
 endif()
 set(LIGHTER_MAKE_INCLUDED true)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS On)
+option(LIGHTER_INSTALL "Generate installation target" ON)
 
-project(light-all)
+set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
 include(CMakeDependentOption)
 include("cmake/PrecompiledHeader.cmake")
 include("cmake/AddExternals.cmake")
 
-set(LIGHTER_IMPORT_SRC ON)
+project(light-all)
 
 add_externals(LIGHTER_EXTERNAL_TARGETS ../external external External)
+
+set(LIGHTER_IMPORT_SRC ON)
 
 get_filename_component(PROJECT_DIR .. ABSOLUTE)
 message("-- Collecting projects")
