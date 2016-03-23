@@ -17,24 +17,12 @@ if (MSVC)
 endif()
 
 #--------------------------------------------------------------------
-# Installation
-#--------------------------------------------------------------------
-if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/../deploy" CACHE PATH "Install path" FORCE)
-endif()
-
-if (NOT LIGHTER_INSTALL_DATA_DIRECTORY)
-    set(LIGHTER_INSTALL_DATA_DIRECTORY bin/data CACHE STRING "Data install directory")
-endif()
-
-set(LIGHTER_INSTALL_COMMAND ${CMAKE_COMMAND} -DBUILD_TYPE=$<CONFIGURATION> -P cmake_install.cmake WORKING_DIRECTORY ${PROJECT_BINARY_DIR} PARENT_SCOPE)
-
-#--------------------------------------------------------------------
 # Setup
 #--------------------------------------------------------------------
 
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
+include("install-config.cmake")
 include(CMakeDependentOption)
 include("cmake/PrecompiledHeader.cmake")
 include("cmake/AddExternals.cmake")
