@@ -39,8 +39,10 @@ else()
 	add_definitions(-std=c++11)
 	# Default to private symbols
 	add_definitions(-fvisibility=hidden)
-	
-    set(LIGHTER_MAKE_DEFAULT_LIBS ${LIGHTER_MAKE_DEFAULT_LIBS} pthread X11 Xrandr Xi Xxf86vm Xcursor Xinerama)
+endif()
+
+if (UNIX)
+	set(LIGHTER_MAKE_DEFAULT_LIBS ${LIGHTER_MAKE_DEFAULT_LIBS} pthread X11 Xrandr Xi Xxf86vm Xcursor Xinerama)
 endif()
 
 set(LIGHTER_MAKE_GLOBAL_FLAGS_SET TRUE)
