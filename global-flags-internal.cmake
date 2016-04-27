@@ -4,5 +4,5 @@
 if(MSVC)
 
 else()
-
+	add_definitions(-std=c++11)
 endif()

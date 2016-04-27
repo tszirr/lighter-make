@@ -36,7 +36,6 @@ if(MSVC)
     endif()
 	
 else()
-	add_definitions(-std=c++11)
 	# Default to private symbols
 	add_definitions(-fvisibility=hidden)
 endif()
